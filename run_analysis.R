@@ -16,13 +16,13 @@ library(dplyr)
 
 
 ## set variable to base directory
-basedir <- "./UCI HAR Dataset"
+basedir <- paste(getwd(), "UCI HAR Dataset", sep = .Platform$file.sep)
 
 
 ## process base files: features.txt and activity_labels.txt
 
 ## read in activities.txt and assign descriptive column names
-file <- paste(basedir, "activity_labels.txt", sep='/')
+file <- paste(basedir, "activity_labels.txt", sep = .Platform$file.sep)
 activities <- read.table(file, header = FALSE)
 colnames(activities) <- c("activity_id", "activity_nm")
 ##head(activites)
@@ -31,7 +31,7 @@ colnames(activities) <- c("activity_id", "activity_nm")
 ## read in features.txt, 
 ## create unique, syntactically correct versions of each name, 
 ## and assign descriptive column names
-file <- paste(basedir, "features.txt", sep='/')
+file <- paste(basedir, "features.txt", sep = .Platform$file.sep)
 features <- read.table(file, header = FALSE)
 x <- make.names(features[,2], unique = TRUE)
 x <- gsub("...", "()-", x, fixed = TRUE)
@@ -48,19 +48,19 @@ colnames(features) <- c("feature_id", "feature_nm", "unique_nm")
 testdir <- "test"
 
 ## read in subject_test.txt and assign descriptive column names
-file <- paste(basedir, testdir, "subject_test.txt", sep = '/')
+file <- paste(basedir, testdir, "subject_test.txt", sep = .Platform$file.sep)
 test_subjects <- read.table(file, header = FALSE)
 colnames(test_subjects) <- "subject_id"
 ##head(test_subjects)
 ##dim(test_subjects)
 
 ## read in X_test and assign descriptive colunn names
-file <- paste(basedir, testdir, "X_test.txt", sep = '/')
+file <- paste(basedir, testdir, "X_test.txt", sep = .Platform$file.sep)
 X_test <- read.table(file, header = FALSE)
 colnames(X_test) <- features[,3] 
 
 ## read in Y_test and assign descriptive colunn names
-file <- paste(basedir, testdir, "Y_test.txt", sep = '/')
+file <- paste(basedir, testdir, "Y_test.txt", sep = .Platform$file.sep)
 Y_test <- read.table(file, header = FALSE)
 colnames(Y_test) <- 'activity_id'
 ##head(Y_test)
@@ -76,21 +76,21 @@ te_all <-
 traindir <- "train"
 
 ## read in subject_train.txt and assign descriptive column names
-file <- paste(basedir, traindir, "subject_train.txt", sep = '/')
+file <- paste(basedir, traindir, "subject_train.txt", sep = .Platform$file.sep)
 train_subjects <- read.table(file, header = FALSE)
 colnames(train_subjects) <- "subject_id"
 ##head(train_subjects)
 ##dim(train_subjects)
 
 ## read in X_train and assign descriptive colunn names
-file <- paste(basedir, traindir, "X_train.txt", sep = '/')
+file <- paste(basedir, traindir, "X_train.txt", sep = .Platform$file.sep)
 X_train <- read.table(file, header = FALSE)
 colnames(X_train) <- features[,3]
 ##head(X_train)
 ##dim(X_train)
 
 ## read in Y_train and assign descriptive colunn names
-file <- paste(basedir, traindir, "Y_train.txt", sep = '/')
+file <- paste(basedir, traindir, "Y_train.txt", sep = .Platform$file.sep)
 Y_train <- read.table(file, header = FALSE)
 colnames(Y_train) <- 'activity_id'
 ##head(Y_train)
@@ -138,7 +138,7 @@ df2 <- reshape(df1,
 df3 <-
         df2 %>%
         group_by(subject_id, activity_nm, metric_nm) %>%
-        summarise(avg=mean(metric_val))
+        summarise(avg_metric_val=mean(metric_val))
 
 ## create a .txt file of the tidy dataset
-write.table(df3, file="project_step5_tidy_dataset.txt", row.names=FALSE)
+write.table(df3, file="project_tidy_dataset.txt", row.names=FALSE)

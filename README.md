@@ -10,10 +10,9 @@ Using the Human Activity Recognition dataset, create an R script named run_analy
 5. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 
 #Assumptions
-1. The setwd() command has been issued to set your working directory.
-2. The source dataset, https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip, has been downloaded and uncompressed into a subdirectory of your working directory.  The subdirectory is named "UCI HAR Dataset".
-3. Your operating system is Mac, Linux, or Unix.
-4. You have the dplyr library installed.
+1. The working directory has been set.  If running RStudio, use the Session --> Set Working Directory menu.  From the R-Console, use the setwd() command.
+2. The source dataset, https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip, has been downloaded into your working directory and uncompressed.  When uncompressed, it will create a subdirectory named, "UCI HAR Dataset".  This subdirectory will have two subdirectories, named "test" and "train", respectively.
+3. You have the dplyr library installed.
 
 
 #What the script does
@@ -51,4 +50,8 @@ a)  Use the group_by function to group the dataframe by subject_id, activity_nm,
 b)  Use the summarize function to calculate the mean of the metric_val in each group.
 
 ##Step 7: Create a .txt file of the tidy dataset
-a)  Use the write.table function with row.names = FALSE to create a .txt file of the tidy dataset.  The file is named "project_step5_tidy_dataset.txt", where step5 refers to the 5th step of the assignment.
+a)  Use the write.table function with row.names = FALSE to create a .txt file of the tidy dataset.  The file is named "project_tidy_dataset.txt".  It contains the columns, "subject_id", "activity_nm", "metric_nm", and "avg_metric_val".
+
+
+#How to run the script
+Enter the command: source("run_analysis.R")
